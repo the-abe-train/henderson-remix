@@ -1,0 +1,4 @@
+.inside {
+  --contentWidth: 896px;
+  padding: 1rem max(1rem, 50vw - var(--contentWidth) / 2);
+}
