@@ -81,8 +81,9 @@ export default function ContactPage() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row sm:space-x-16 justify-between">
-          <Form
-            method="post"
+          <form
+            method="POST"
+            action="/?index"
             netlify-honeypot="bot-field"
             data-netlify="true"
             name="contact"
@@ -140,7 +141,7 @@ export default function ContactPage() {
             >
               Send
             </button>
-          </Form>
+          </form>
           <img
             src={mapToOffice}
             width={300}
