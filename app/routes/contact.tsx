@@ -24,7 +24,7 @@ export default function ContactPage() {
           Contact Us
         </h1>
       </section>
-      <section className={`p-inside px-4 space-y-4 sm:space-y-8`}>
+      <section className="p-inside space-y-4 sm:space-y-8">
         <p>
           Your first consultation is free! Use the form below to send us a
           message and we will get back to you as soon as possible.
@@ -113,8 +113,10 @@ export default function ContactPage() {
           </form>
           <img
             src={mapToOffice}
+            width={300}
             alt="light logo"
-            className="border-2 border-black md:flex-grow md:h-60 w-1/3 self-center"
+            className="border-2 border-black md:flex-grow md:h-60 self-center
+            object-cover h-auto max-w-lg"
           />
         </div>
       </section>

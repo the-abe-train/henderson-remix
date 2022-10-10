@@ -1,8 +1,8 @@
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 
 import Burger from "~/images/icons/hamburger.svg";
-import Phone from "~/images/icons/phone.svg";
-import Mail from "~/images/icons/mail.svg";
+import PhoneLight from "~/images/icons/phone-light.svg";
+import MailLight from "~/images/icons/mail-light.svg";
 import LinkedIn from "~/images/icons/linked-in.svg";
 import boldLogo from "~/images/logos/bold_logo.png";
 import darkLogo from "~/images/logos/new_dark_logo.png";
@@ -89,7 +89,7 @@ export default function Layout({ children, page }: Props) {
           <div className="col-span-1 sm:w-36">
             <h4 className="font-bold">Hours</h4>
             <p>Monday to Friday</p>
-            <p>8:00 a.m. – 5:00 p.m.</p>
+            <p>8:00 a.m. - 5:00 p.m.</p>
             <p>(Weekend availability upon request)</p>
           </div>
           <div className="col-span-2 sm:col-span-1 ">
@@ -105,11 +105,16 @@ export default function Layout({ children, page }: Props) {
           <div className="col-span-2 sm:col-span-1 space-y-1">
             <h4 className="font-bold">Contact</h4>
             <p>
-              <img src={Mail} alt="mail" className="inline mx-2" />
+              <img
+                src={MailLight}
+                alt="mail"
+                className="inline mx-2"
+                color="white"
+              />
               jennifer@hendersonreporting.com
             </p>
             <p>
-              <img src={Phone} alt="phone" className="inline mx-2" />
+              <img src={PhoneLight} alt="phone" className="inline mx-2" />
               416-471-0699
             </p>
             <p>

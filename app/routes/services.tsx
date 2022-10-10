@@ -38,7 +38,7 @@ export default function ServicesPage() {
             className="my-4 rounded-sm drop-shadow-lg block"
             // layout="constrained"
             // aspectRatio={4 / 3}
-            width={1000}
+            width={250}
           />
           <div className="space-y-2 md:w-[2000px]">
             <h2 className="text-xl font-header">Audio/Video Transcription</h2>
@@ -57,8 +57,9 @@ export default function ServicesPage() {
           <img
             src={Pencil}
             alt="Table interview"
-            className="my-4 rounded-sm drop-shadow-lg block"
-            width={1000}
+            className="my-4 rounded-sm drop-shadow-lg block max-h-44 object-cover"
+            width={250}
+
             // aspectRatio={4 / 3}
           />
           <div className="space-y-2 md:max-w-xl">
@@ -77,9 +78,8 @@ export default function ServicesPage() {
           <img
             src={GlobeCropped}
             alt="A globe"
-            className="my-4 rounded-sm drop-shadow-lg block"
-            // aspectRatio={4 / 3}
-            width={800}
+            className="my-4 rounded-sm drop-shadow-lg block max-h-44 object-cover"
+            width={250}
           />
           <div className="space-y-2 md:max-w-xl">
             <h2 className="text-xl font-header">Translations</h2>
@@ -96,9 +96,8 @@ export default function ServicesPage() {
           <img
             src={CalendarJan}
             alt="Calendar on January"
-            className="my-4 rounded-sm drop-shadow-lg"
-            width={1000}
-            // aspectRatio={4 / 3}
+            className="my-4 rounded-sm drop-shadow-lg block max-h-44 object-cover"
+            width={250}
           />
           <div className="space-y-2 md:max-w-xl">
             <h2 className="text-xl font-header">Accessibility</h2>
@@ -117,9 +116,8 @@ export default function ServicesPage() {
           <img
             src={Pointing}
             alt="Pointing at laptop"
-            className="my-4 rounded-sm drop-shadow-lg block"
-            width={1000}
-            // aspectRatio={4 / 3}
+            className="my-4 rounded-sm drop-shadow-lg block max-h-44 object-cover"
+            width={250}
           />
           <div className="space-y-2 md:w-[2000px]">
             <h2 className="text-xl font-header">Customized Projects</h2>
@@ -141,7 +139,6 @@ export default function ServicesPage() {
             <img src={Calendar} alt="Calendar" />
             <img src={Document} alt="Document" />
           </div>
-
           <Link to="/contact" className="mx-auto ">
             <button
               style={{ border: "1px solid green" }}

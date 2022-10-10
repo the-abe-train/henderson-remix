@@ -15,7 +15,15 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com" },
+  {
+    href: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;700&family=Merriweather&display=swap",
+    rel: "stylesheet",
+  },
+];
 
 export default function App() {
   return (

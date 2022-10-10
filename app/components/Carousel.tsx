@@ -30,7 +30,7 @@ export default function Carousel({ quotes, title, image }: Props) {
   }, [quoteIdx]);
 
   return (
-    <section className={`p-inside bg-teal-900 text-green-50 px-4 py-16`}>
+    <section className="p-inside bg-teal-900 text-green-50">
       <h2 className="font-header text-3xl font-bold">{title}</h2>
       <div className="sm:flex sm:space-x-4">
         {image && (

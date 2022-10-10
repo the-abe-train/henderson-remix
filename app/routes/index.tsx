@@ -69,9 +69,7 @@ const quotes: Quote[] = [
 export default function IndexPage() {
   return (
     <Layout page="Home">
-      <section
-        className={`home-banner p-inside h-64 md:h-[350px] shadow-inner z-0`}
-      >
+      <section className="home-banner p-inside h-64 md:h-[350px] shadow-inner z-0">
         <div
           className="flex flex-col w-fit justify-between h-56 md:pt-12
         sm:block sm:space-y-10"
@@ -132,7 +130,7 @@ export default function IndexPage() {
 
       <Carousel quotes={quotes} title="Our Clients" image={true} />
 
-      <section className="p-inside px-4 space-y-4 d:space-y-0">
+      <section className="p-inside space-y-4 d:space-y-0">
         <h2 className="font-header text-3xl font-bold">How to Find Us</h2>
         <div className="md:flex space-y-4 md:space-y-0 md:space-x-4">
           <img
