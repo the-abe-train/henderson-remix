@@ -7,7 +7,7 @@ import MapImage from "../images/icons/map.svg";
 import mapToOffice from "../images/screenshots/map_to_office.png";
 
 import banners from "~/styles/banners.css";
-import { LinksFunction, redirect } from "@remix-run/node";
+import { json, LinksFunction, redirect } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
@@ -16,10 +16,31 @@ export const links: LinksFunction = () => [
 
 import type { ActionArgs } from "@remix-run/node";
 export async function action({ request }: ActionArgs) {
-  const formData = await request.formData();
-  console.log(formData);
-
-  return redirect("/contact");
+  try {
+    const formData = await request.formData();
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const phone = formData.get("phone");
+    const email = formData.get(" email");
+    const subject = formData.get("    subject");
+    const text = formData.get("text");
+    const baseUrl = request.url;
+    const body = `bot-field=&form-name=contact&first-name=${firstName}&last-name=${lastName}&phone=${phone}&email=${email}&subject=${subject}&text=${text}`;
+    await fetch(`${baseUrl}/form`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+    });
+    console.log(formData);
+    return json({ message: "Form submitted!" });
+  } catch (e) {
+    return json({
+      message:
+        "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
+    });
+  }
 }
 
 export default function ContactPage() {
