@@ -8,7 +8,7 @@ import mapToOffice from "../images/screenshots/map_to_office.png";
 
 import banners from "~/styles/banners.css";
 import { json, LinksFunction, redirect } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: banners },
@@ -22,7 +22,7 @@ export async function action({ request }: ActionArgs) {
     const lastName = formData.get("lastName");
     const phone = formData.get("phone");
     const email = formData.get(" email");
-    const subject = formData.get("    subject");
+    const subject = formData.get("subject");
     const text = formData.get("text");
     const baseUrl = request.url;
     const body = `bot-field=&form-name=contact&first-name=${firstName}&last-name=${lastName}&phone=${phone}&email=${email}&subject=${subject}&text=${text}`;
@@ -44,6 +44,7 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function ContactPage() {
+  const actionData = useActionData<typeof action>();
   return (
     <Layout page="Contact">
       <section
@@ -81,9 +82,9 @@ export default function ContactPage() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row sm:space-x-16 justify-between">
-          <form
-            method="POST"
-            action="/?index"
+          <Form
+            method="post"
+            // action="/?contact"
             netlify-honeypot="bot-field"
             data-netlify="true"
             name="contact"
@@ -134,14 +135,20 @@ export default function ContactPage() {
             <button
               style={{ border: "1px solid green" }}
               type="submit"
-              className="w-fill sm:w-1/3 sm:mx-auto col-span-2
-        text-white bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700
-        hover:bg-gradient-to-br focus:ring-4 focus:ring-teal-300 
+              className="w-fill sm:w-1/3 sm:mx-auto col-span-2 text-white 
+        bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700
+        disabled:bg-none
+        disabled:bg-teal-700
+        hover:bg-gradient-to-br focus:ring-4 
+        focus:ring-teal-300 
         font-bold rounded-lg text-sm px-10 py-2.5 text-center"
+              disabled={Boolean(actionData?.message)}
             >
               Send
             </button>
-          </form>
+            <p>{actionData?.message}</p>
+            {/* {actionData?.message && <p>{}</p>} */}
+          </Form>
           <img
             src={mapToOffice}
             width={300}
