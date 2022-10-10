@@ -16,31 +16,35 @@ export const links: LinksFunction = () => [
 
 import type { ActionArgs } from "@remix-run/node";
 export async function action({ request }: ActionArgs) {
+  // console.log(request);
   try {
     const formData = await request.formData();
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
+    const firstName = formData.get("first-name");
+    const lastName = formData.get("last-name");
     const phone = formData.get("phone");
-    const email = formData.get(" email");
+    const email = formData.get("email");
     const subject = formData.get("subject");
     const text = formData.get("text");
     const baseUrl = request.url;
     const body = `bot-field=&form-name=contact&first-name=${firstName}&last-name=${lastName}&phone=${phone}&email=${email}&subject=${subject}&text=${text}`;
-    await fetch(`${baseUrl}/form`, {
+    const response = await fetch(`${baseUrl}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body,
     });
-    console.log(formData);
-    return json({ message: "Form submitted!" });
+    if (response.status === 200) return json({ message: "Form submitted!" });
   } catch (e) {
     return json({
       message:
         "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
     });
   }
+  return json({
+    message:
+      "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
+  });
 }
 
 export default function ContactPage() {
@@ -146,7 +150,7 @@ export default function ContactPage() {
             >
               Send
             </button>
-            <p>{actionData?.message}</p>
+            <p className="col-span-2">{actionData?.message}</p>
             {/* {actionData?.message && <p>{}</p>} */}
           </Form>
           <img
