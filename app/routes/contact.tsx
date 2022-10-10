@@ -7,48 +7,106 @@ import MapImage from "../images/icons/map.svg";
 import mapToOffice from "../images/screenshots/map_to_office.png";
 
 import banners from "~/styles/banners.css";
-import { json, LinksFunction, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import { ActionArgs, json, LinksFunction, redirect } from "@remix-run/node";
+import { Form, useActionData, useTransition } from "@remix-run/react";
+import { sendEmail } from "~/util/nodemailer";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: banners },
 ];
 
-import type { ActionArgs } from "@remix-run/node";
+// import type { ActionArgs } from "@remix-run/node";
+// export async function action({ request }: ActionArgs) {
+//   // console.log(request);
+//   try {
+//     const formData = await request.formData();
+//     const firstName = formData.get("first-name");
+//     const lastName = formData.get("last-name");
+//     const phone = formData.get("phone");
+//     const email = formData.get("email");
+//     const subject = formData.get("subject");
+//     const text = formData.get("text");
+//     const baseUrl = request.url;
+//     const body = `bot-field=&form-name=contact&first-name=${firstName}&last-name=${lastName}&phone=${phone}&email=${email}&subject=${subject}&text=${text}`;
+//     const response = await fetch(`${baseUrl}`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       body,
+//     });
+//     if (response.status === 200) return json({ message: "Form submitted!" });
+//   } catch (e) {
+//     return json({
+//       message:
+//         "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
+//     });
+//   }
+//   return json({
+//     message:
+//       "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
+//   });
+// }
+
 export async function action({ request }: ActionArgs) {
-  // console.log(request);
-  try {
-    const formData = await request.formData();
-    const firstName = formData.get("first-name");
-    const lastName = formData.get("last-name");
-    const phone = formData.get("phone");
-    const email = formData.get("email");
-    const subject = formData.get("subject");
-    const text = formData.get("text");
-    const baseUrl = request.url;
-    const body = `bot-field=&form-name=contact&first-name=${firstName}&last-name=${lastName}&phone=${phone}&email=${email}&subject=${subject}&text=${text}`;
-    const response = await fetch(`${baseUrl}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body,
-    });
-    if (response.status === 200) return json({ message: "Form submitted!" });
-  } catch (e) {
+  const getEntry = (formData: FormData, entry: string) => {
+    const value = formData.get(entry);
+    if (typeof value !== "string" || !value) {
+      return "";
+    }
+    return value;
+  };
+  const formData = await request.formData();
+  const firstName = getEntry(formData, "first-name");
+  const lastName = getEntry(formData, "last-name");
+  const phone = getEntry(formData, "phone");
+  const email = getEntry(formData, "email");
+  const subject = getEntry(formData, "subject");
+  const text = getEntry(formData, "text");
+
+  const errors = {
+    email: email ? null : "Email is required",
+    text: text ? null : "Message is required",
+    firstName: firstName ? null : "First name is required",
+    lastName: lastName ? null : "Last name is required",
+    phone: phone ? null : "Phone is required",
+    subject: subject ? null : "Subject is required",
+  };
+  const hasErrors = Object.values(errors).some(Boolean);
+  if (hasErrors) {
     return json({
-      message:
-        "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
+      ...errors,
+      message: "Please make sure all fields are filled out.",
     });
   }
-  return json({
-    message:
-      "An error occurred. Please reach out to Henderson Reporting by email at jennifer@hendersonreporting.com",
-  });
+
+  const emailSubject = "New email from company website";
+  const emailBody = `<p>Name: ${firstName} ${lastName}</p>
+  <p>Email: ${email}</p>
+  <p>Phone: ${phone}</p>
+  <p>Subject: ${subject}</p>
+  <p>${text}</p>`;
+
+  console.log(emailBody);
+
+  try {
+    // Takes too long to actually wait for the response
+    sendEmail({ emailSubject, emailBody });
+    const finish = () => {
+      return new Promise<Record<"message", string>>((res) => {
+        setTimeout(() => res({ message: "Email sent!" }), 2000);
+      });
+    };
+    const x = await finish();
+    return json(x);
+  } catch (e) {
+    return json({ message: "An error occurred, please try again later." });
+  }
 }
 
 export default function ContactPage() {
   const actionData = useActionData<typeof action>();
+  const transition = useTransition();
   return (
     <Layout page="Contact">
       <section
@@ -146,7 +204,9 @@ export default function ContactPage() {
         hover:bg-gradient-to-br focus:ring-4 
         focus:ring-teal-300 
         font-bold rounded-lg text-sm px-10 py-2.5 text-center"
-              disabled={Boolean(actionData?.message)}
+              disabled={
+                Boolean(actionData?.message) || transition.state !== "idle"
+              }
             >
               Send
             </button>
