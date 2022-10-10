@@ -7,11 +7,20 @@ import MapImage from "../images/icons/map.svg";
 import mapToOffice from "../images/screenshots/map_to_office.png";
 
 import banners from "~/styles/banners.css";
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction, redirect } from "@remix-run/node";
+import { Form } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: banners },
 ];
+
+import type { ActionArgs } from "@remix-run/node";
+export async function action({ request }: ActionArgs) {
+  const formData = await request.formData();
+  console.log(formData);
+
+  return redirect("/contact");
+}
 
 export default function ContactPage() {
   return (
@@ -32,7 +41,7 @@ export default function ContactPage() {
 
         <div
           className="grid w-2/3 items-center gap-4 sm:gap-8 m-4
-        sm:flex sm:w-full sm:mx-auto sm:justify-around"
+        sm:flex sm:w-full mx-auto sm:justify-around"
         >
           <div className="flex items-center space-x-2">
             <img src={Mail} alt="mail" className="inline" />
@@ -51,7 +60,7 @@ export default function ContactPage() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row sm:space-x-16 justify-between">
-          <form
+          <Form
             method="post"
             netlify-honeypot="bot-field"
             data-netlify="true"
@@ -110,7 +119,7 @@ export default function ContactPage() {
             >
               Send
             </button>
-          </form>
+          </Form>
           <img
             src={mapToOffice}
             width={300}

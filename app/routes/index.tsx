@@ -154,7 +154,7 @@ export default function IndexPage() {
               </div>
             </div>
           </div>
-          <div className="md:w-1/3 space-y-4">
+          <div className="md:w-1/3 space-y-3">
             <h3 className="text-lg font-bold">Contact Us</h3>
             <p>Your first consultation is free!</p>
             <p className="m-2 text-sm">
@@ -167,7 +167,7 @@ export default function IndexPage() {
             </p>
             <Link to="/contact" className="mx-auto ">
               <button
-                className="w-fit mx-auto block
+                className="w-fit mx-auto my-4 block
            text-white font-bold bg-gradient-to-r from-teal-500 via-teal-600 to-teal-700
            file:hover:bg-gradient-to-br focus:ring-4 focus:ring-teal-300 
            file:font-bold rounded-lg text-sm px-5 py-2.5 text-center
