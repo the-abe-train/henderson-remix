@@ -94,7 +94,7 @@ export default function Layout({ children, page }: Props) {
           </div>
           <div className="col-span-2 sm:col-span-1 ">
             <h4 className="font-bold">Pages</h4>
-            <nav className="flex flex-row space-x-4 md:space-x-0 sm:flex-col">
+            <nav className="flex flex-row space-x-4 sm:space-x-0 sm:flex-col">
               <Link to="/">Home</Link>
               <Link to="/about">About Us</Link>
               <Link to="/services">Services</Link>
@@ -108,17 +108,25 @@ export default function Layout({ children, page }: Props) {
               <img
                 src={MailLight}
                 alt="mail"
-                className="inline mx-2"
+                className="inline md:hidden lg:inline mx-2"
                 color="white"
               />
               jennifer@hendersonreporting.com
             </p>
             <p>
-              <img src={PhoneLight} alt="phone" className="inline mx-2" />
+              <img
+                src={PhoneLight}
+                alt="phone"
+                className="inline md:hidden lg:inline mx-2"
+              />
               416-471-0699
             </p>
             <p>
-              <img src={LinkedIn} alt="LinkedIn" className="inline mx-2" />
+              <img
+                src={LinkedIn}
+                alt="LinkedIn"
+                className="inline md:hidden lg:inline mx-2"
+              />
               <a href="https://www.linkedin.com/company/henderson-reporting/">
                 linkedin.com/henderson-reporting
               </a>

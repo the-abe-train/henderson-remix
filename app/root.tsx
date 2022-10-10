@@ -11,8 +11,10 @@ import styles from "./styles/tailwind.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Henderson Reporting",
   viewport: "width=device-width,initial-scale=1",
+  description:
+    "Reporting and transcriptions based in Toronto, available across CanadaHenderson Reporting & Transcribing Inc. We uphold a guaranteed standard of accuracy, efficiency, and security.",
 });
 
 export const links: LinksFunction = () => [
